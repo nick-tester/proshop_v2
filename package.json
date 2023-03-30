@@ -1,0 +1,21 @@
+{
+  "name": "proshop-v2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run gateway\" \"npm run users\" \"npm run products\"",
+    "gateway": "npm run dev --prefix gateway",
+    "users": "npm run dev --prefix users",
+    "products": "npm run dev --prefix products",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  },
+  "dependencies": {
+    "concurrently": "^8.0.1"
+  }
+}
