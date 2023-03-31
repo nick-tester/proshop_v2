@@ -1,6 +1,7 @@
+require("dotenv").config();
 const express = require("express");
 const server = express();
-const port = 5001;
+const port = process.env.USER_PORT || 4002;
 
 server.get("/getdata", (req, res) => {
     res.send("Inside users get data!");
