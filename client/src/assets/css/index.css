@@ -1,0 +1,24 @@
+main {
+    min-height: 80vh;
+}
+
+.ml-auto {
+    margin-left: auto;
+}
+
+h3.h3-price {
+    padding-top: 10px;
+}
+
+.rating span {
+    margin-right: 2px;
+}
+
+a:link,
+a:active {
+    text-decoration: none;
+}
+
+.btn-block {
+    width: 100%;
+}
