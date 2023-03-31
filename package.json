@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"npm run gateway\" \"npm run products\" \"npm run users\"",
+    "start": "concurrently \"npm run servers\" \"npm start --prefix client\"",
+    "servers": "concurrently \"npm run gateway\" \"npm run products\" \"npm run users\"",
     "gateway": "npm run dev --prefix gateway",
     "users": "npm run dev --prefix users",
     "products": "npm run dev --prefix products",

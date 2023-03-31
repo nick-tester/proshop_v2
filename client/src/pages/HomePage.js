@@ -9,7 +9,7 @@ const HomePage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const { data } = await axios.get("/products/getdata");
+                const { data } = await axios.get("/products/all");
 
                 setProducts(data);
             } catch (err) {
