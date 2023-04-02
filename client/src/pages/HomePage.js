@@ -10,6 +10,7 @@ const HomePage = () => {
         const fetchData = async () => {
             try {
                 const { data } = await axios.get("/products/all");
+                console.log(data);
 
                 setProducts(data);
             } catch (err) {

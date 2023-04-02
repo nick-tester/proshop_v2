@@ -1,21 +1,32 @@
-require("dotenv").config();
+require("dotenv").config({ path: "../CONFIG.env" });
 const express = require("express");
 const server = express();
+const Product = require("../models/Product");
+const connectDB = require("../connectDB");
 const port = process.env.PRODUCT_PORT || 4001;
-const products = require("./assets/products");
+
+connectDB();
 
 server.use(express.json());
 
-server.get("/all", (req, res) => {
-    res.send(products);
+server.get("/all", async (req, res) => {
+    try {
+        const products = await Product.find();
+
+        res.json(products);
+    } catch (err) {
+        console.error(`Error: ${err.message}`);
+    }
 });
 
-server.get("/single/:id", (req, res) => {
-    const productId = req.params.id;
+server.get("/single/:id", async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id);
 
-    const product = products.find(p => p._id === productId);
-
-    res.send(product);
+        res.json(product);
+    } catch (err) {
+        console.error(`Error: ${err.message}`);
+    }
 });
 
 server.listen(port, () => {

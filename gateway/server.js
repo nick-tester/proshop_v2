@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config({ path: "../CONFIG.env" });
 const gateway = require("fast-gateway");
 const port = process.env.GATEWAY_PORT || 4000;
 
