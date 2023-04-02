@@ -5,7 +5,7 @@ const port = process.env.USER_PORT || 4002;
 const User = require("../models/User");
 const connectDB = require("../connectDB");
 
-connectDB();
+connectDB("User");
 
 server.use(express.json());
 

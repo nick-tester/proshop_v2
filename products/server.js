@@ -5,7 +5,7 @@ const Product = require("../models/Product");
 const connectDB = require("../connectDB");
 const port = process.env.PRODUCT_PORT || 4001;
 
-connectDB();
+connectDB("Product");
 
 server.use(express.json());
 
