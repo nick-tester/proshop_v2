@@ -1,4 +1,4 @@
-require("dotenv").config({ path: "../CONFIG.env" });
+require("dotenv").config();
 const gateway = require("fast-gateway");
 const port = process.env.GATEWAY_PORT || 4000;
 
@@ -6,11 +6,11 @@ const server = gateway({
     routes: [
         {
             prefix: "/products",
-            target: "http://localhost:5001"
+            target: process.env.TARGET_URL1
         },
         {
             prefix: "/users",
-            target: "http://localhost:5002"
+            target: process.env.TARGET_URL2
         }
     ]
 });

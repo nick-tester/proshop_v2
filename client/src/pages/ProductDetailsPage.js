@@ -32,7 +32,7 @@ const ProductDetailsPage = () => {
         };
 
         fetchData();
-    }, []);
+    }, [productId]);
 
     return (
         <>

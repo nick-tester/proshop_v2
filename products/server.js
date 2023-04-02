@@ -1,8 +1,8 @@
-require("dotenv").config({ path: "../CONFIG.env" });
+require("dotenv").config();
 const express = require("express");
 const server = express();
-const Product = require("../models/Product");
-const connectDB = require("../connectDB");
+const Product = require("./assets/models/Product");
+const connectDB = require("./assets/connectDB");
 const port = process.env.PRODUCT_PORT || 4001;
 
 connectDB("Product");
