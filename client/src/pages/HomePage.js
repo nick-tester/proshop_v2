@@ -1,35 +1,31 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
 import { Card, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { listProducts } from "../redux/actions/productActions";
+import Loading from "../components/Loading";
+import Message from "../components/Message";
 
 const HomePage = () => {
-    const [products, setProducts] = useState([]);
+    const dispatch = useDispatch();
+    const productList = useSelector(state => state.productList);
+    const { loading, products, error } = productList;
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const { data } = await axios.get("/products/all");
-                console.log(data);
-
-                setProducts(data);
-            } catch (err) {
-                console.error(err.message);
-            }
-        };
-
-        fetchData();
-    }, []);
+        dispatch(listProducts());
+    }, [dispatch]);
 
     return <>
         <h4>Home Page</h4>
-        <Row>
-            {products.map(product => {
-                return <Col sm={12} md={6} lg={4} xl={3} key={product._id} >
-                    <Product product={product} />
-                </Col>
-            })}
-        </Row>
+        {loading ? <Loading /> : error ? <Message variant="danger">{error}</Message> : (
+            <Row>
+                {products.map(product => {
+                    return <Col sm={12} md={6} lg={4} xl={3} key={product._id} >
+                        <Product product={product} />
+                    </Col>
+                })}+
+            </Row>
+        )}
     </>
 };
 

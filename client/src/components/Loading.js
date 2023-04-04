@@ -9,7 +9,7 @@ const Loading = () => {
             role="status"
             style={{ width: "100px", height: "100px", margin: "auto", display: "block" }}
         >
-            <span className="sr-only">LOADING...</span>
+            <span className="sr-only" />
         </Spinner>
     )
 };
