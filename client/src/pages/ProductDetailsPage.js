@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { Row, Col, ListGroup, Card, Button, Image, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { detailsProduct } from "../redux/actions/productActions";
@@ -13,6 +13,7 @@ const ProductDetailsPage = () => {
     const { id: productID } = useParams();
 
     const dispatch = useDispatch();
+    const navTo = useNavigate();
 
     const productDetails = useSelector(state => state.productDetails);
     const { loading, product, error } = productDetails;
@@ -22,6 +23,10 @@ const ProductDetailsPage = () => {
     useEffect(() => {
         dispatch(detailsProduct(productID));
     }, [productID, dispatch]);
+
+    const addToCartHandler = () => {
+        navTo(`/cart/${productID}?qty=${qty}`);
+    };
 
     return (
         <>
@@ -93,7 +98,7 @@ const ProductDetailsPage = () => {
                                         type="button"
                                         className="btn-block"
                                         disabled={countInStock < 1}
-                                        onClick={() => console.log("Clicked!")}
+                                        onClick={addToCartHandler}
                                     >
                                         Add To Cart
                                     </Button>
