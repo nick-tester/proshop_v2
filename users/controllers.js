@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcryptjs");
 const User = require("./assets/models/User");
+const generateToken = require("./assets/utils/generateToken");
 
 const getUsers = asyncHandler(async (req, res) => {
     const users = await User.find();
@@ -28,7 +29,7 @@ const authUser = asyncHandler(async (req, res) => {
             name: user.name,
             email: user.email,
             isAdmin: user.isAdmin,
-            token: null
+            token: generateToken(user._id)
         });
     } else {
         res.status(401);
