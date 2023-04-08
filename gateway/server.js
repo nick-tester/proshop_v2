@@ -5,11 +5,11 @@ const port = process.env.GATEWAY_PORT || 4000;
 const server = gateway({
     routes: [
         {
-            prefix: "/products",
+            prefix: "/api/v1/products",
             target: process.env.TARGET_URL1
         },
         {
-            prefix: "/users",
+            prefix: "/api/v1/users",
             target: process.env.TARGET_URL2
         }
     ]
