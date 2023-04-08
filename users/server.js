@@ -1,8 +1,9 @@
 const express = require("express");
 const { config } = require("dotenv");
 const connectDB = require("./assets/connectDB");
-const { getUsers, getUserByID, authUser, registerUser } = require("./controllers");
+const { authUser, registerUser, getUserProfile } = require("./controllers");
 const { errorCatcher, notFound } = require("./middlewares/errorHandlers");
+const protect = require("./middlewares/protect");
 const server = express();
 
 config();
@@ -12,8 +13,7 @@ const port = process.env.USER_PORT || 4002;
 
 server.use(express.json());
 
-server.get("/all", getUsers);
-server.get("/single/:id", getUserByID);
+server.get("/auth/profile", protect, getUserProfile)
 server.post("/auth/login", authUser);
 server.post("/auth/register", registerUser);
 

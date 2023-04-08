@@ -3,21 +3,6 @@ const bcrypt = require("bcryptjs");
 const User = require("./assets/models/User");
 const generateToken = require("./assets/utils/generateToken");
 
-const getUsers = asyncHandler(async (req, res) => {
-    const users = await User.find();
-    res.json(users);
-});
-
-const getUserByID = asyncHandler(async (req, res) => {
-    const user = await User.findById(req.params.id);
-
-    if (!user) {
-        throw new Error("User not found!");
-    }
-
-    res.json(user);
-});
-
 const authUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
 
@@ -37,10 +22,27 @@ const authUser = asyncHandler(async (req, res) => {
     }
 });
 
+const getUserProfile = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.user._id);
+
+    if (!user) {
+        res.status(404);
+        throw new Error("User not found!");
+    } else {
+        res.json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            isAdmin: user.isAdmin,
+        });
+    }
+
+});
+
 const registerUser = asyncHandler(async (req, res) => {
     const registerData = req.body;
 
     res.json(registerData);
 });
 
-module.exports = { getUsers, getUserByID, authUser, registerUser };
+module.exports = { authUser, registerUser, getUserProfile };
