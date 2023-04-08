@@ -1,4 +1,5 @@
 const asyncHandler = require("express-async-handler");
+const bcrypt = require("bcryptjs");
 const User = require("./assets/models/User");
 
 const getUsers = asyncHandler(async (req, res) => {
@@ -16,4 +17,29 @@ const getUserByID = asyncHandler(async (req, res) => {
     res.json(user);
 });
 
-module.exports = { getUsers, getUserByID };
+const authUser = asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+
+    if (user && (await bcrypt.compare(password, user.password))) {
+        res.json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            isAdmin: user.isAdmin,
+            token: null
+        });
+    } else {
+        res.status(401);
+        throw new Error("Unauthorized, access denied!");
+    }
+});
+
+const registerUser = asyncHandler(async (req, res) => {
+    const registerData = req.body;
+
+    res.json(registerData);
+});
+
+module.exports = { getUsers, getUserByID, authUser, registerUser };
