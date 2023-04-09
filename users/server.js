@@ -9,18 +9,14 @@ const server = express();
 config();
 connectDB("User");
 
-const port = process.env.USER_PORT || 4002;
-
 server.use(express.json());
 
-server.get("/auth/profile", protect, getUserProfile)
-server.post("/auth/login", authUser);
-server.post("/auth/register", registerUser);
+server.route("/auth/profile").post(registerUser).get(protect, getUserProfile);
+
+server.post("/auth", authUser);
 
 server.use(notFound);
-
 server.use(errorCatcher);
 
-server.listen(port, () => {
-    console.log(`User server running in ${process.env.NODE_ENV} on port: ${port}`);
-});
+const port = process.env.USER_PORT || 4002;
+server.listen(port, () => console.log(`User server running in ${process.env.NODE_ENV} on port: ${port}`));
