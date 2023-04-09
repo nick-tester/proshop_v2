@@ -40,9 +40,29 @@ const getUserProfile = asyncHandler(async (req, res) => {
 });
 
 const registerUser = asyncHandler(async (req, res) => {
-    const registerData = req.body;
+    const { name, email, password } = req.body;
 
-    res.json(registerData);
+    const emailExist = await User.findOne({ email });
+
+    if (emailExist) {
+        res.status(400);
+        throw new Error("This email is already taken.");
+    }
+
+    const user = await User.create({
+        name,
+        email,
+        password: await bcrypt.hash(password, await bcrypt.genSalt(10))
+    });
+
+    res.status(201)
+    res.json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        isAdmin: user.isAdmin,
+        token: generateToken(user._id)
+    });
 });
 
 module.exports = { authUser, registerUser, getUserProfile };
