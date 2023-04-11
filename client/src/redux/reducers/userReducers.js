@@ -10,7 +10,7 @@ import {
 
 const userLoginInitialState = {
     loading: false,
-    userInfo: {},
+    userInfo: null,
     error: null
 };
 
@@ -45,7 +45,7 @@ const userLoginReducer = (state = userLoginInitialState, action) => {
 
 const userRegisterInitialState = {
     loading: false,
-    userInfo: {},
+    userInfo: null,
     error: null
 };
 

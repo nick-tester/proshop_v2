@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import CartPage from "./pages/CartPage";
 import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 import Header from "./layouts/Header";
 import Footer from "./layouts/Footer";
 
@@ -26,9 +27,9 @@ const Main = () => {
                 <Route path="/product/:id" element={<ProductDetailsPage />} />
                 <Route path="/cart/:id?" element={<CartPage />} />
                 <Route path="/user/login" element={<LoginPage />} />
+                <Route path="/user/register" element={<RegisterPage />} />
                 {/* 
                     <Route path=":id" element={<CartPageParams />} />
-                <Route path="/signup" element={<RegisterPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
                  */}
             </Routes>

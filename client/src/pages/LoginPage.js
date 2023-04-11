@@ -11,8 +11,8 @@ const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const location = useLocation();
-    const redirect = location.search ? location.search.split("=")[1] : "/";
+    const { search } = useLocation();
+    const redirect = search ? search.split("=")[1] : null;
 
     const navTo = useNavigate();
     const dispatch = useDispatch();
@@ -34,6 +34,7 @@ const LoginPage = () => {
     };
 
     return <FormContainer>
+        <h4>Login Details</h4>
         {error && <Message variant="danger">{error}</Message>}
         {loading && <Loading />}
         <Form onSubmit={submitHandler}>

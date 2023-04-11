@@ -11,9 +11,11 @@ const HomePage = () => {
     const productList = useSelector(state => state.productList);
     const { loading, products, error } = productList;
 
+    const { userInfo } = useSelector(state => state.userLogin);
+
     useEffect(() => {
         dispatch(listProducts());
-    }, [dispatch]);
+    }, [dispatch, userInfo]);
 
     return <>
         <h4>Home Page</h4>
