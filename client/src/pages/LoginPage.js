@@ -22,7 +22,7 @@ const LoginPage = () => {
 
     useEffect(() => {
         if (userInfo) {
-            navTo("/success");
+            navTo("/");
         }
     }, [navTo, userInfo]);
 
