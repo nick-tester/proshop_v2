@@ -25,7 +25,7 @@ const CartPage = () => {
     }, [productID, qty, dispatch]);
 
     const checkoutHandler = () => {
-        navTo("/login?redirect=shipping");
+        navTo("/user/login?redirect=shipping");
     };
 
     const removeItemHandler = id => {

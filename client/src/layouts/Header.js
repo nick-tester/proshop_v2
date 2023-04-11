@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaUser } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
 
 const Header = () => {
@@ -18,6 +18,9 @@ const Header = () => {
                         <LinkContainer to="/cart">
                             <Nav.Link><FaShoppingCart /> Cart</Nav.Link>
                         </LinkContainer>
+                        <LinkContainer to="/user/login">
+                            <Nav.Link><FaUser /> login </Nav.Link>
+                        </LinkContainer>
                         {/* {profile ? (
                             <NavDropdown title={profile.name} id="username">
                                 <LinkContainer to="/profile">
@@ -26,9 +29,6 @@ const Header = () => {
                                 <NavDropdown.Item>Signout</NavDropdown.Item>
                             </NavDropdown>
                         ) : (
-                            <LinkContainer to="/signin">
-                                <Nav.Link><FaUser /> sign-in</Nav.Link>
-                            </LinkContainer>
                         )} */}
                     </Nav>
                 </Navbar.Collapse>
