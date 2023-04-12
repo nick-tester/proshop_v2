@@ -25,7 +25,7 @@ const RegisterPage = () => {
 
     useEffect(() => {
         if (userInfo) {
-            navTo("/");
+            navTo("/user/profile");
         }
     }, [navTo, userInfo]);
 

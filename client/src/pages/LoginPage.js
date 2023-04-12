@@ -22,7 +22,7 @@ const LoginPage = () => {
 
     useEffect(() => {
         if (userInfo) {
-            navTo("/");
+            navTo("/user/profile");
         }
     }, [navTo, userInfo]);
 
