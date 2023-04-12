@@ -11,6 +11,11 @@ const Header = () => {
 
     const dispatch = useDispatch();
 
+    const logoutHandler = () => {
+        dispatch(logoutUser());
+        window.location.reload(false);
+    };
+
     return <header>
         <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
             <Container>
@@ -29,7 +34,7 @@ const Header = () => {
                                 <LinkContainer to="/profile">
                                     <NavDropdown.Item>Profile</NavDropdown.Item>
                                 </LinkContainer>
-                                <NavDropdown.Item onClick={() => dispatch(logoutUser())}>Signout</NavDropdown.Item>
+                                <NavDropdown.Item onClick={logoutHandler}>Log Out</NavDropdown.Item>
                             </NavDropdown>
                         ) : (
                             <LinkContainer to="/user/login">
