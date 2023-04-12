@@ -3,6 +3,9 @@ const bcrypt = require("bcryptjs");
 const User = require("./assets/models/User");
 const generateToken = require("./assets/utils/generateToken");
 
+// @desc    Login user
+// @route   POST /api/v1/users/auth
+// @access  Public
 const authUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
 
@@ -22,6 +25,9 @@ const authUser = asyncHandler(async (req, res) => {
     }
 });
 
+// @desc    Get user profile
+// @route   GET /api/v1/users/auth/profile
+// @access  Private
 const getUserProfile = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
 
@@ -36,9 +42,50 @@ const getUserProfile = asyncHandler(async (req, res) => {
             isAdmin: user.isAdmin,
         });
     }
-
 });
 
+// @desc    Update user profile
+// @route   PUT /api/v1/users/auth/profile
+// @access  Private
+const updateUserProfile = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.user._id);
+
+    if (!user) {
+        res.status(404);
+        throw new Error("User not found!");
+    } else {
+        user.name = req.body.name || user.name;
+
+        if (req.body.email) {
+            const emailExist = await User.findOne({ email: req.body.email });
+
+            if (emailExist) {
+                res.status(401)
+                throw new Error("This email is already taken!");
+            } else {
+                user.email = req.body.email;
+            }
+        }
+
+        if (req.body.password) {
+            user.password = await bcrypt.hash(req.body.password, await bcrypt.genSalt(10));
+        };
+
+        const updatedUser = await user.save();
+
+        res.json({
+            _id: updatedUser._id,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            isAdmin: updatedUser.isAdmin,
+            token: generateToken(updatedUser._id)
+        });
+    }
+});
+
+// @desc    Register user
+// @route   POST /api/v1/users/auth/profile
+// @access  Public
 const registerUser = asyncHandler(async (req, res) => {
     const { name, email, password } = req.body;
 
@@ -65,4 +112,4 @@ const registerUser = asyncHandler(async (req, res) => {
     });
 });
 
-module.exports = { authUser, registerUser, getUserProfile };
+module.exports = { authUser, registerUser, getUserProfile, updateUserProfile };

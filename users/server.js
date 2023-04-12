@@ -1,7 +1,7 @@
 const express = require("express");
 const { config } = require("dotenv");
 const connectDB = require("./assets/connectDB");
-const { authUser, registerUser, getUserProfile } = require("./controllers");
+const { authUser, registerUser, getUserProfile, updateUserProfile } = require("./controllers");
 const { errorCatcher, notFound } = require("./middlewares/errorHandlers");
 const protect = require("./middlewares/protect");
 const server = express();
@@ -11,7 +11,11 @@ connectDB("User");
 
 server.use(express.json());
 
-server.route("/auth/profile").post(registerUser).get(protect, getUserProfile);
+server
+    .route("/auth/profile")
+    .post(registerUser)
+    .get(protect, getUserProfile)
+    .put(protect, updateUserProfile)
 
 server.post("/auth", authUser);
 
