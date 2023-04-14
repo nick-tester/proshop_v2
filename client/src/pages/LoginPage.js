@@ -11,8 +11,8 @@ const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const { search } = useLocation();
-    const redirect = search ? search.split("=")[1] : null;
+    const query = useLocation();
+    const redirect = query ? query.search.split("=")[1] : null;
 
     const navTo = useNavigate();
     const dispatch = useDispatch();
@@ -22,9 +22,9 @@ const LoginPage = () => {
 
     useEffect(() => {
         if (userInfo) {
-            navTo("/user/profile");
+            navTo(`/${redirect}`);
         }
-    }, [navTo, userInfo]);
+    }, [navTo, userInfo, redirect]);
 
     const submitHandler = e => {
         e.preventDefault();

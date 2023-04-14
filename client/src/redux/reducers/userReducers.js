@@ -8,7 +8,11 @@ import {
     USER_REGISTER_FAIL,
     USER_DETAILS_REQUEST,
     USER_DETAILS_SUCCESS,
-    USER_DETAILS_FAIL
+    USER_DETAILS_FAIL,
+    USER_UPDATE_PROFILE_REQUEST,
+    USER_UPDATE_PROFILE_SUCCESS,
+    USER_UPDATE_PROFILE_FAIL,
+    USER_UPDATE_PROFILE_RESET
 } from "../constants/userConstants";
 
 const userLoginInitialState = {
@@ -109,4 +113,42 @@ const userDetailsReducer = (state = userDetailsInitialState, action) => {
     }
 };
 
-export { userLoginReducer, userRegisterReducer, userDetailsReducer };
+const userUpdateProfileInitialState = {
+    loading: false,
+    success: false,
+    userInfo: null,
+    error: null
+};
+
+const userUpdateProfileReducer = (state = userUpdateProfileInitialState, action) => {
+    const { type, payload } = action;
+
+    switch (type) {
+        case USER_UPDATE_PROFILE_REQUEST:
+            return { ...state, loading: true };
+
+        case USER_UPDATE_PROFILE_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                success: true,
+                userInfo: payload
+            };
+
+        case USER_UPDATE_PROFILE_FAIL:
+            return {
+                ...state,
+                loading: false,
+                success: false,
+                error: payload
+            };
+
+        case USER_UPDATE_PROFILE_RESET:
+            return userUpdateProfileInitialState;
+
+        default:
+            return state;
+    }
+};
+
+export { userLoginReducer, userRegisterReducer, userDetailsReducer, userUpdateProfileReducer };
