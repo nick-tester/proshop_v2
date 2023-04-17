@@ -7,6 +7,7 @@ import CartPage from "./pages/CartPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
+import ShippingPage from "./pages/ShippingPage";
 import Header from "./layouts/Header";
 import Footer from "./layouts/Footer";
 
@@ -30,6 +31,7 @@ const Main = () => {
                 <Route path="/user/login" element={<LoginPage />} />
                 <Route path="/user/register" element={<RegisterPage />} />
                 <Route path="/user/profile" element={<ProfilePage />} />
+                <Route path="/shipping" element={<ShippingPage />} />
                 {/* 
                     <Route path=":id" element={<CartPageParams />} />
                  */}

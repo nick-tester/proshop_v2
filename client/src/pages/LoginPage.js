@@ -10,6 +10,7 @@ import { loginUser } from "../redux/actions/userActions";
 const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [message, setMessage] = useState(null);
 
     const query = useLocation();
     const redirect = query ? query.search.split("=")[1] : null;
@@ -22,7 +23,7 @@ const LoginPage = () => {
 
     useEffect(() => {
         if (userInfo) {
-            navTo(`/${redirect}`);
+            navTo(`/${redirect ? redirect : "user/profile"}`);
         }
     }, [navTo, userInfo, redirect]);
 
@@ -30,12 +31,16 @@ const LoginPage = () => {
         e.preventDefault();
         if (email && password) {
             dispatch(loginUser(email, password))
-        };
+        }
+        if (!email || !password) {
+            setMessage("Please enter email/password.")
+        }
     };
 
     return <FormContainer>
         <h4>Login Details</h4>
         {error && <Message variant="danger">{error}</Message>}
+        {message && <Message variant="danger">{message}</Message>}
         {loading && <Loading />}
         <Form onSubmit={submitHandler}>
             <Form.Group controlId="email">
