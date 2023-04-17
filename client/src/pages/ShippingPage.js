@@ -4,15 +4,20 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import FormContainer from "../components/FormContainer";
+import { saveShippingAddress } from "../redux/actions/cartActions";
 
 
 const ShippingPage = () => {
-    const [address, setAddress] = useState("");
-    const [city, setCity] = useState("");
-    const [postcode, setPostcode] = useState("");
-    const [country, setCountry] = useState("");
+    const cart = useSelector(state => state.cart);
+    const { shippingAddress } = cart;
+
+    const [address, setAddress] = useState(shippingAddress ? shippingAddress.address : "");
+    const [city, setCity] = useState(shippingAddress ? shippingAddress.city : "");
+    const [postcode, setPostcode] = useState(shippingAddress ? shippingAddress.postcode : "");
+    const [country, setCountry] = useState(shippingAddress ? shippingAddress.country : "");
 
     const navto = useNavigate();
+    const dispatch = useDispatch();
 
     const { userInfo } = useSelector(state => state.userLogin);
 
@@ -24,7 +29,8 @@ const ShippingPage = () => {
 
     const submitHandler = e => {
         e.preventDefault();
-        console.log({ address, city, postcode, country });
+        dispatch(saveShippingAddress({ address, city, postcode, country }));
+        navto("/payment");
     };
 
     return <FormContainer>
