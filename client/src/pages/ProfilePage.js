@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Row, Col, Form, Button } from "react-bootstrap";
@@ -23,7 +24,7 @@ const ProfilePage = () => {
     const { userInfo } = userLogin;
 
     const userUpdateProfile = useSelector(state => state.userUpdateProfile);
-    const { loading: updateLoading, success, error: errorLoading, userInfo: userInfoUpdate } = userUpdateProfile;
+    const { loading: updateLoading, success } = userUpdateProfile;
 
     useEffect(() => {
         if (!userInfo) {

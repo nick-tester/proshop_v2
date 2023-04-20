@@ -11,6 +11,7 @@ import ProfilePage from "./pages/ProfilePage";
 import ShippingPage from "./pages/ShippingPage";
 import PageNotFound from "./pages/NotFoundPage";
 import PaymentPage from "./pages/PaymentPage";
+import PlaceOrderPage from "./pages/PlaceOrderPage";
 import Header from "./layouts/Header";
 import Footer from "./layouts/Footer";
 
@@ -26,7 +27,10 @@ const App = () => {
 
 const Main = () => {
     const cart = useSelector(state => state.cart);
-    const { shippingAddress } = cart;
+    const { shippingAddress, paymentMethod } = cart;
+
+    const userLogin = useSelector(state => state.userLogin);
+    const { userInfo } = userLogin;
 
     return <main className="py-3">
         <Container>
@@ -36,9 +40,14 @@ const Main = () => {
                 <Route path="/cart/:id?" element={<CartPage />} />
                 <Route path="/user/login" element={<LoginPage />} />
                 <Route path="/user/register" element={<RegisterPage />} />
-                <Route path="/user/profile" element={<ProfilePage />} />
-                <Route path="/shipping" element={<ShippingPage />} />
-                {shippingAddress && <Route path="/payment" element={<PaymentPage />} />}
+                {userInfo && (
+                    <>
+                        <Route path="/user/profile" element={<ProfilePage />} />
+                        <Route path="/shipping" element={<ShippingPage />} />
+                        {shippingAddress && <Route path="/payment" element={<PaymentPage />} />}
+                        {(shippingAddress && paymentMethod) && <Route path="/placeorder" element={<PlaceOrderPage />} />}
+                    </>
+                )}
                 <Route path="*" element={<PageNotFound />} />
             </Routes>
         </Container>
