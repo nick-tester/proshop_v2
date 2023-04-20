@@ -6,7 +6,7 @@ import {
 
 const cartInitialState = {
     cartItems: [],
-    shippingAddress: {}
+    shippingAddress: null
 };
 
 const cartReducers = (state = cartInitialState, action) => {

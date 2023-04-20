@@ -1,6 +1,7 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
+import { useSelector } from "react-redux";
 import HomePage from "./pages/HomePage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import CartPage from "./pages/CartPage";
@@ -8,7 +9,8 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
 import ShippingPage from "./pages/ShippingPage";
-// import PaymentPage from "./pages/PaymentPage";
+import PageNotFound from "./pages/NotFoundPage";
+import PaymentPage from "./pages/PaymentPage";
 import Header from "./layouts/Header";
 import Footer from "./layouts/Footer";
 
@@ -23,6 +25,9 @@ const App = () => {
 };
 
 const Main = () => {
+    const cart = useSelector(state => state.cart);
+    const { shippingAddress } = cart;
+
     return <main className="py-3">
         <Container>
             <Routes>
@@ -33,10 +38,8 @@ const Main = () => {
                 <Route path="/user/register" element={<RegisterPage />} />
                 <Route path="/user/profile" element={<ProfilePage />} />
                 <Route path="/shipping" element={<ShippingPage />} />
-                {/* <Route path="/payment" element={<PaymentPage />} /> */}
-                {/* 
-                    <Route path=":id" element={<CartPageParams />} />
-                 */}
+                {shippingAddress && <Route path="/payment" element={<PaymentPage />} />}
+                <Route path="*" element={<PageNotFound />} />
             </Routes>
         </Container>
     </main>
