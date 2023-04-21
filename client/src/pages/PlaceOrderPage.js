@@ -7,11 +7,21 @@ import styled from "styled-components";
 import FormContainer from "../components/FormContainer";
 import Message from "../components/Message";
 import CheckoutSteps from "../components/CheckoutSteps";
+import addDecimals from "../assets/utils/addDecimals";
 
 
 const PlaceOrderPage = () => {
     const cart = useSelector(state => state.cart);
     const { cartItems, shippingAddress, paymentMethod } = cart;
+
+    const itemsPrice = Number(cartItems.reduce((acc, item) => acc + item.price * item.qty, 0));
+    const shippingPrice = itemsPrice > 100 ? 0 : 50;
+    const taxPrice = Number((0.15 * itemsPrice).toFixed(2));
+    const totalPrice = itemsPrice + shippingPrice + taxPrice;
+
+    const placeOrderHandler = () => {
+        console.log("Order placed!");
+    };
 
     return <Wrapper>
         <CheckoutSteps step1 step2 step3 step4 />
@@ -60,7 +70,42 @@ const PlaceOrderPage = () => {
                 </ListGroup>
             </Col>
             <Col md={4}>
-                {/* ORDER SUMMARY */}
+                <ListGroup>
+                    <ListGroup.Item>
+                        <h2>Order Summary</h2>
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                        <Row>
+                            <Col>Items</Col>
+                            <Col>£{addDecimals(itemsPrice)}</Col>
+                        </Row>
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                        <Row>
+                            <Col>Shipping</Col>
+                            <Col>£{addDecimals(shippingPrice)}</Col>
+                        </Row>
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                        <Row>
+                            <Col>Tax</Col>
+                            <Col>£{addDecimals(taxPrice)}</Col>
+                        </Row>
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                        <Row>
+                            <Col>Total</Col>
+                            <Col>£{addDecimals(totalPrice)}</Col>
+                        </Row>
+                    </ListGroup.Item>
+                    <ListGroup>
+                        <Button
+                            type="button"
+                            className="btn-block"
+                            disabled={cartItems.length === 0}
+                            onClick={placeOrderHandler}>Place Order</Button>
+                    </ListGroup>
+                </ListGroup>
             </Col>
         </Row>
     </Wrapper>
