@@ -34,7 +34,7 @@ const createOrder = (order) => async (dispatch, getState) => {
 
 const getOrderDetails = (id) => async (dispatch, getState) => {
     try {
-        dispatch({ type: ORDER_CREATE_REQUEST });
+        dispatch({ type: ORDER_DETAILS_REQUEST });
 
         const { userInfo: { token } } = getState().userLogin;
 
@@ -46,10 +46,10 @@ const getOrderDetails = (id) => async (dispatch, getState) => {
 
         const { data } = await axios.get(`/api/v1/orders/get/${id}`, config);
 
-        dispatch({ type: ORDER_CREATE_SUCCESS, payload: data });
+        dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data });
     } catch (err) {
         dispatch({
-            type: ORDER_CREATE_FAIL,
+            type: ORDER_DETAILS_FAIL,
             payload: err.response && err.response.data.message ? err.response.data.message : err.message
         });
     }
