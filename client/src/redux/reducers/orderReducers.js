@@ -1,7 +1,10 @@
 import {
     ORDER_CREATE_REQUEST,
     ORDER_CREATE_SUCCESS,
-    ORDER_CREATE_FAIL
+    ORDER_CREATE_FAIL,
+    ORDER_DETAILS_REQUEST,
+    ORDER_DETAILS_SUCCESS,
+    ORDER_DETAILS_FAIL
 } from "../constants/orderConstants";
 
 const createInitialState = {
@@ -28,4 +31,31 @@ const orderCreateReducer = (state = createInitialState, action) => {
     }
 };
 
-export { orderCreateReducer };
+const orderDetailsInitialState = {
+    loading: false,
+    orderItems: [],
+    shippingAddress: {},
+    error: null
+};
+
+const orderDetailsReducer = (state = orderDetailsInitialState, action) => {
+    const { type, payload } = action;
+
+    switch (type) {
+        case ORDER_DETAILS_REQUEST:
+            return { ...state, loading: true };
+
+        case ORDER_DETAILS_SUCCESS:
+            return { ...state, loading: false, ...payload };
+
+        case ORDER_DETAILS_FAIL:
+            return { ...state, loading: false, error: payload };
+
+        default:
+            return state;
+    }
+};
+
+
+
+export { orderCreateReducer, orderDetailsReducer };
