@@ -1,7 +1,7 @@
 const express = require("express");
 const { config } = require("dotenv");
 const connectDB = require("./assets/connectDB");
-const { createOrder, getOrderById } = require("./controllers");
+const { createOrder, getOrderById, getOrdersByUserId } = require("./controllers");
 const protect = require("./middlewares/protect");
 const { errorCatcher, notFound } = require("./middlewares/errorHandlers");
 
@@ -16,6 +16,8 @@ server.use(express.json());
 server.post("/create", protect, createOrder);
 
 server.get("/get/:id", protect, getOrderById);
+
+server.get("/user", protect, getOrdersByUserId);
 
 server.use(notFound);
 server.use(errorCatcher);
