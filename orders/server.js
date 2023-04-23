@@ -10,6 +10,8 @@ connectDB("Order");
 
 const server = express();
 
+server.use(express.json());
+
 server.post("/create", protect, createOrder);
 
 server.get("/find/:id", findOrderById);
