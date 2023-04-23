@@ -17,4 +17,4 @@ server.post("/create", protect, createOrder);
 server.get("/find/:id", findOrderById);
 
 const port = process.env.ORDER_PORT || 5003;
-server.listen(port, () => console.log(`Server running in ${process.env.NODE_ENV} on port ${port}`));
+server.listen(port, () => console.log(`Order server running in ${process.env.NODE_ENV} mode on port ${port}...`));

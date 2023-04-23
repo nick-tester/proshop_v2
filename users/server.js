@@ -23,4 +23,4 @@ server.use(notFound);
 server.use(errorCatcher);
 
 const port = process.env.USER_PORT || 4002;
-server.listen(port, () => console.log(`User server running in ${process.env.NODE_ENV} on port: ${port}`));
+server.listen(port, () => console.log(`User server running in ${process.env.NODE_ENV} mode on port ${port}...`));

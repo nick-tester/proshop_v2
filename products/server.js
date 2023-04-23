@@ -19,5 +19,5 @@ server.use(notFound);
 server.use(errorCatcher);
 
 server.listen(port, () => {
-    console.log(`Product server running in ${process.env.NODE_ENV} mode on port: ${port}`);
+    console.log(`Product server running in ${process.env.NODE_ENV} mode on port: ${port}...`);
 });
