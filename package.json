@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"npm run servers\" \"npm run client\"",
+    "start": "concurrently \"npm run servers\" \"npm run client\" \"npm run orders\"",
     "servers": "concurrently \"npm run products\" \"npm run users\"",
     "client": "npm start --prefix client",
     "gateway": "npm run dev --prefix gateway",
     "users": "npm run dev --prefix users",
     "products": "npm run dev --prefix products",
+    "orders": "npm run dev --prefix orders",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

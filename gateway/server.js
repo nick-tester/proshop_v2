@@ -1,5 +1,8 @@
-require("dotenv").config();
+const { config } = require("dotenv");
 const gateway = require("fast-gateway");
+
+config();
+
 const port = process.env.GATEWAY_PORT || 4000;
 
 const server = gateway({
@@ -11,6 +14,10 @@ const server = gateway({
         {
             prefix: "/api/v1/users",
             target: process.env.TARGET_URL2
+        },
+        {
+            prefix: "/api/v1/orders",
+            target: process.env.TARGET_URL3
         }
     ]
 });
@@ -25,6 +32,10 @@ server.get("/users", (req, res) => {
 
 server.get("/products", (req, res) => {
     res.send("Inside product root route");
+});
+
+server.get("/orders", (req, res) => {
+    res.send("Inside order root route");
 });
 
 server
