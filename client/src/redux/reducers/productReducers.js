@@ -21,10 +21,10 @@ const productListReducer = (state = listInitialState, action) => {
             return { ...state, loading: true }
 
         case PRODUCT_LIST_SUCCESS:
-            return { ...state, products: payload, loading: false }
+            return { ...state, loading: false, products: payload }
 
         case PRODUCT_LIST_FAIL:
-            return { ...state, error: payload, loading: false }
+            return { ...state, loading: false, error: payload }
 
         default:
             return { ...listInitialState }

@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
@@ -9,11 +10,13 @@ const Header = () => {
     const userLogin = useSelector(state => state.userLogin);
     const { userInfo } = userLogin;
 
+    const navto = useNavigate();
     const dispatch = useDispatch();
 
     const logoutHandler = () => {
         dispatch(logoutUser());
-        window.location.reload(false);
+        // window.location.reload(false);
+        navto("/");
     };
 
     return <header>

@@ -33,8 +33,20 @@ const orderCreateReducer = (state = createInitialState, action) => {
 
 const orderDetailsInitialState = {
     loading: false,
-    orderItems: [],
-    shippingAddress: {},
+    order: {
+        isPaid: "",
+        paidAt: "",
+        isDelivered: "",
+        deliveredAt: "",
+        user: {},
+        paymentMethod: "",
+        shippingAddress: {},
+        orderItems: [],
+        itemsPrice: 0,
+        taxPrice: 0,
+        shippingPrice: 0,
+        totalPrice: 0
+    },
     error: null
 };
 
@@ -46,7 +58,7 @@ const orderDetailsReducer = (state = orderDetailsInitialState, action) => {
             return { ...state, loading: true };
 
         case ORDER_DETAILS_SUCCESS:
-            return { ...state, loading: false, ...payload };
+            return { ...state, loading: false, order: payload };
 
         case ORDER_DETAILS_FAIL:
             return { ...state, loading: false, error: payload };

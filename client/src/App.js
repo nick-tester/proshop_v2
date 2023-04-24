@@ -12,7 +12,7 @@ import ShippingPage from "./pages/ShippingPage";
 import PageNotFound from "./pages/NotFoundPage";
 import PaymentPage from "./pages/PaymentPage";
 import PlaceOrderPage from "./pages/PlaceOrderPage";
-import OrderPage from "./pages/OrderPage";
+import OrderDetailsPage from "./pages/OrderDetailsPage";
 import Header from "./layouts/Header";
 import Footer from "./layouts/Footer";
 
@@ -43,7 +43,7 @@ const Main = () => {
                 <Route path="/user/register" element={<RegisterPage />} />
                 {userInfo && (
                     <>
-                        <Route path="/order/:id" element={<OrderPage />} />
+                        <Route path="/order/:id" element={<OrderDetailsPage />} />
                         <Route path="/user/profile" element={<ProfilePage />} />
                         <Route path="/shipping" element={<ShippingPage />} />
                         {shippingAddress && <Route path="/payment" element={<PaymentPage />} />}
