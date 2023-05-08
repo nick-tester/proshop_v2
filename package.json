@@ -8,9 +8,9 @@
     "servers": "concurrently \"npm run products\" \"npm run users\" \"npm run orders\"",
     "client": "npm start --prefix client",
     "gateway": "npm run dev --prefix gateway",
-    "users": "npm run dev --prefix users",
-    "products": "npm run dev --prefix products",
-    "orders": "npm run dev --prefix orders",
+    "users": "npm run dev --prefix servers/users",
+    "products": "npm run dev --prefix servers/products",
+    "orders": "npm run dev --prefix servers/orders",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
