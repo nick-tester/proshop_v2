@@ -4,7 +4,11 @@ import {
     ORDER_CREATE_FAIL,
     ORDER_DETAILS_REQUEST,
     ORDER_DETAILS_SUCCESS,
-    ORDER_DETAILS_FAIL
+    ORDER_DETAILS_FAIL,
+    ORDER_PAY_REQUEST,
+    ORDER_PAY_SUCCESS,
+    ORDER_PAY_FAIL,
+    ORDER_PAY_RESET
 } from "../constants/orderConstants";
 
 const createInitialState = {
@@ -68,6 +72,31 @@ const orderDetailsReducer = (state = orderDetailsInitialState, action) => {
     }
 };
 
+const orderPayInitialStates = {
+    loading: false,
+    success: false,
+    error: null
+}
 
+const orderPayReducer = (state = orderPayInitialStates, action) => {
+    const { type, payload } = action;
 
-export { orderCreateReducer, orderDetailsReducer };
+    switch (type) {
+        case ORDER_PAY_REQUEST:
+            return { loading: true };
+
+        case ORDER_PAY_SUCCESS:
+            return { loading: false, success: true, error: null };
+
+        case ORDER_PAY_FAIL:
+            return { loading: false, success: false, error: payload };
+
+        case ORDER_PAY_RESET:
+            return {};
+
+        default:
+            return state;
+    }
+};
+
+export { orderCreateReducer, orderDetailsReducer, orderPayReducer };
