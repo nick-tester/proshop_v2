@@ -55,4 +55,25 @@ const getOrdersByUserId = asyncHandler(async (req, res) => {
     }
 });
 
-module.exports = { createOrder, getOrderById, getOrdersByUserId };
+//@route    UPDATE /api/v1/orders/order/:id/pay
+//@desc     Update order to paid
+//access    Private
+const updateOrderToPaid = asyncHandler(async (req, res) => {
+    const order = await Order.findById(req.params.id);
+    const { id, status, update_time, payer } = req.body;
+
+    if (order) {
+        order.isPaid = true;
+        order.paidAt = Date.now();
+        order.paymentResult = { id, status, update_time, email_address: payer.email_address };
+
+        const updatedOrder = await order.save();
+
+        res.json(updatedOrder);
+    } else {
+        res.status(404);
+        throw new Error("No orders found");
+    }
+});
+
+module.exports = { createOrder, getOrderById, getOrdersByUserId, updateOrderToPaid };
