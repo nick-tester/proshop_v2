@@ -14,6 +14,8 @@ server.use(express.json());
 
 server.use("/", server_routes);
 
+server.get("/config/paypal", (req, res) => res.send(process.env.PAYPAL_CLIENT_ID));
+
 server.use(notFound);
 server.use(errorCatcher);
 
