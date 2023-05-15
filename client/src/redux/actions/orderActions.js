@@ -8,7 +8,10 @@ import {
     ORDER_DETAILS_FAIL,
     ORDER_PAY_REQUEST,
     ORDER_PAY_SUCCESS,
-    ORDER_PAY_FAIL
+    ORDER_PAY_FAIL,
+    GET_ORDERS_FAIL,
+    GET_ORDERS_REQUEST,
+    GET_ORDERS_SUCCESS
 } from "../constants/orderConstants";
 
 const createOrder = (order) => async (dispatch, getState) => {
@@ -82,4 +85,28 @@ const payOrder = (orderId, paymentResult) => async (dispatch, getState) => {
     }
 };
 
-export { createOrder, getOrderDetails, payOrder };
+const getMyOrders = () => async (dispatch, getState) => {
+    try {
+        dispatch({ type: GET_ORDERS_REQUEST });
+
+        const { userInfo: { token } } = getState().userLogin;
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
+
+        const { data } = await axios.get("/api/v1/orders/user", config);
+
+        dispatch({ type: GET_ORDERS_SUCCESS, payload: data });
+
+    } catch (err) {
+        dispatch({
+            type: GET_ORDERS_FAIL,
+            payload: err.response && err.response.data.message ? err.response.data.message : err.message
+        });
+    }
+};
+
+export { createOrder, getOrderDetails, payOrder, getMyOrders };

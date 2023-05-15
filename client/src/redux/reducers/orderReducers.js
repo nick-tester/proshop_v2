@@ -8,7 +8,10 @@ import {
     ORDER_PAY_REQUEST,
     ORDER_PAY_SUCCESS,
     ORDER_PAY_FAIL,
-    ORDER_PAY_RESET
+    ORDER_PAY_RESET,
+    GET_ORDERS_REQUEST,
+    GET_ORDERS_SUCCESS,
+    GET_ORDERS_FAIL
 } from "../constants/orderConstants";
 
 const createInitialState = {
@@ -28,6 +31,30 @@ const orderCreateReducer = (state = createInitialState, action) => {
             return { ...state, loading: false, order: payload };
 
         case ORDER_CREATE_FAIL:
+            return { ...state, loading: false, error: payload };
+
+        default:
+            return state;
+    }
+};
+
+const myOrdersInitialStates = {
+    loading: false,
+    myOrders: [],
+    error: null
+};
+
+const myOrderListReducer = (state = myOrdersInitialStates, action) => {
+    const { type, payload } = action;
+
+    switch (type) {
+        case GET_ORDERS_REQUEST:
+            return { ...state, loading: true };
+
+        case GET_ORDERS_SUCCESS:
+            return { ...state, loading: false, myOrders: payload };
+
+        case GET_ORDERS_FAIL:
             return { ...state, loading: false, error: payload };
 
         default:
@@ -99,4 +126,4 @@ const orderPayReducer = (state = orderPayInitialStates, action) => {
     }
 };
 
-export { orderCreateReducer, orderDetailsReducer, orderPayReducer };
+export { orderCreateReducer, orderDetailsReducer, orderPayReducer, myOrderListReducer };

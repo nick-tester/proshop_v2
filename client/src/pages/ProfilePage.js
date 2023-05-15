@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import Loading from "../components/Loading";
 import { getUserDetails, updateUserProfile } from "../redux/actions/userActions";
+import { getMyOrders } from "../redux/actions/orderActions";
 
 const ProfilePage = () => {
     const [name, setName] = useState("");
@@ -26,6 +27,9 @@ const ProfilePage = () => {
     const userUpdateProfile = useSelector(state => state.userUpdateProfile);
     const { loading: updateLoading, success } = userUpdateProfile;
 
+    const myOrderList = useSelector(state => state.myOrderList);
+    const { loading: loadingOrders, myOrders, error: errorOrders } = myOrderList;
+
     useEffect(() => {
         if (!userInfo) {
             navTo("/user/login");
@@ -38,6 +42,10 @@ const ProfilePage = () => {
             }
         }
     }, [dispatch, navTo, userInfo, user, success]);
+
+    useEffect(() => {
+        dispatch(getMyOrders());
+    }, [dispatch, getMyOrders]);
 
     const submitHandler = e => {
         e.preventDefault();
@@ -100,6 +108,8 @@ const ProfilePage = () => {
             </Col>
             <Col md={9}>
                 <h2>my orders</h2>
+                {loadingOrders && <Loading />}
+                {myOrders && <p>{myOrders.length}</p>}
             </Col>
         </Row>
     </>
