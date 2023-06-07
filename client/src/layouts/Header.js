@@ -5,6 +5,7 @@ import { FaShoppingCart, FaUser } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../redux/actions/userActions";
+import Logo from "../assets/css/logo.png";
 
 const Header = () => {
     const userLogin = useSelector(state => state.userLogin);
@@ -23,12 +24,15 @@ const Header = () => {
         <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
             <Container>
                 <LinkContainer to="/">
-                    <Navbar.Brand>Proshop</Navbar.Brand>
+                    <Navbar.Brand>
+                        <img src={Logo} alt="logo" />
+                        Proshop
+                    </Navbar.Brand>
                 </LinkContainer>
 
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="ml-auto">
+                    <Nav className="ms-auto">
                         <LinkContainer to="/cart">
                             <Nav.Link><FaShoppingCart /> Cart</Nav.Link>
                         </LinkContainer>
