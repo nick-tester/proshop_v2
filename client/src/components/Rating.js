@@ -20,7 +20,7 @@ const Rating = ({ value, text, color = "gold" }) => {
             <span style={{ color }}>
                 {value >= 5 ? <FaStar /> : value >= 4.5 ? <FaStarHalfAlt /> : <FaRegStar />}
             </span>
-            <small style={{ fontWeight: "900", marginLeft: "5px" }}>{ } {text && text}</small>
+            <small style={{ fontWeight: "900", marginLeft: "5px" }}>{ } {text && `${text} reviews`}</small>
         </div>
     )
 };

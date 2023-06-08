@@ -3,8 +3,8 @@ import { Card, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../redux/actions/productActions";
-import Loading from "../components/Loading";
-import Message from "../components/Message";
+import { Loading, Message, Rating } from "../components";
+
 
 const HomePage = () => {
     const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const HomePage = () => {
     }, [dispatch]);
 
     return <>
-        <h4>Home Page</h4>
+        <h2>Latest Cool Gadgets</h2>
         {loading ? <Loading /> : error ? <Message variant="danger">{error}</Message> : (
             <Row>
                 {products.map(product => {
@@ -38,12 +38,12 @@ const Product = ({ product }) => {
             </Link>
             <Card.Body>
                 <Link to={`/product/${_id}`}>
-                    <Card.Title as="div">
+                    <Card.Title as="div" className="product-title">
                         <strong>{name}</strong>
                     </Card.Title>
                 </Link>
-                <Card.Text as="div">
-                    <span>{rating} stars from {numReviews} review</span>
+                <Card.Text as="div" className="mb-2">
+                    <Rating value={rating} text={numReviews} />
                 </Card.Text>
                 <Card.Text as="h3" className="h3-price">£{price}</Card.Text>
             </Card.Body>
