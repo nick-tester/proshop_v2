@@ -11,10 +11,13 @@ import store from "./store";
 import "./assets/css/bootstrap.custom.css";
 import "./assets/css/index.css";
 import App from "./App";
+import HomePage from "./pages/HomePage";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<App />}>
+            <Route index={true} path="/" element={<HomePage />} />
+        </Route>
     )
 );
 
